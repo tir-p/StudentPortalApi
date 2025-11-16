@@ -80,10 +80,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-// Enable CORS
+// Enable CORS - MUST be before UseHttpsRedirection and UseAuthorization
 app.UseCors("AllowAngularApp");
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
