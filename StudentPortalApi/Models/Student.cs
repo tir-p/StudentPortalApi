@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using StudentPortalApi.Models;
@@ -56,12 +57,7 @@ public class Student
     [Column("ContactNumber")]
     public string ContactNumber { get; set; }
 
-    // One-to-one relationship
-    [Required]
-    [Column("AddressId")]
-    public int AddressId { get; set; }
-
-    [ForeignKey("AddressId")]
-    public Address Address { get; set; }
+    // Navigation properties
+    public Address Address { get; set; }  // one-to-one, FK on Address
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>(); // one-to-many
 }
-
