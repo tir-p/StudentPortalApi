@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortalApi.Interfaces;
 using StudentPortalApi.Repositories;
 using StudentPortalApi.Services;
+using StudentPortalApi.Converters;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,12 @@ builder.Services.AddControllers()
         // Prevent circular reference issues when returning entities with navigation properties
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.WriteIndented = true;
+        // Use camelCase for property names to match frontend expectations
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        // Serialize enums as strings instead of integers
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter(System.Text.Json.JsonNamingPolicy.CamelCase));
+        // Custom converter for LetterGrade to convert APlus -> A+, AMinus -> A-, etc.
+        options.JsonSerializerOptions.Converters.Add(new LetterGradeJsonConverter());
     });
 
 // Register Swagger/OpenAPI
@@ -52,6 +59,18 @@ builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 // Register AutoMapper (will scan for all profiles in the assembly)
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+// Add CORS to allow frontend to call the API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200") // Angular dev server default ports
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -62,6 +81,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 

@@ -46,6 +46,13 @@ namespace StudentPortalApi.DTOs
         [Required(ErrorMessage = "Credits are required")]
         [Range(1, 60, ErrorMessage = "Credits must be between 1 and 60")]
         public int Credits { get; set; }
+
+        // Optional scores
+        public double? MidtermScore { get; set; }
+        public double? FinalScore { get; set; }
+
+        // Nested assignments for frontend
+        public List<AssignmentDTO>? Assignments { get; set; }
     }
 }
 

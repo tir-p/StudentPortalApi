@@ -35,6 +35,9 @@ namespace StudentPortalApi.DTOs
 
         [Required(ErrorMessage = "Status is required")]
         public AttendanceStatus Status { get; set; }
+
+        // Nested records for frontend
+        public List<AttendanceRecordDTO>? Records { get; set; }
     }
 }
 

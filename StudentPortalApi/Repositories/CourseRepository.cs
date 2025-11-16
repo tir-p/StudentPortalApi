@@ -31,11 +31,12 @@ namespace StudentPortalApi.Repositories
 
             var courseDtos = _mapper.Map<IEnumerable<CourseDTO>>(courses);
             
-            // Map instructor name
+            // Map instructor and schedule
             foreach (var courseDto in courseDtos)
             {
                 var course = courses.First(c => c.Id == courseDto.Id);
                 courseDto.InstructorName = course.Instructor?.Name;
+                // Instructor and Schedule are already mapped by AutoMapper
             }
 
             return courseDtos;
@@ -52,6 +53,7 @@ namespace StudentPortalApi.Repositories
 
             var courseDto = _mapper.Map<CourseDTO>(course);
             courseDto.InstructorName = course.Instructor?.Name;
+            // Instructor and Schedule are already mapped by AutoMapper
             return courseDto;
         }
 

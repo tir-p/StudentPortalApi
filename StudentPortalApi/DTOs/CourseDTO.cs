@@ -48,6 +48,10 @@ namespace StudentPortalApi.DTOs
 
         [StringLength(500, ErrorMessage = "Syllabus cannot exceed 500 characters")]
         public string? Syllabus { get; set; }
+
+        // Nested objects for frontend
+        public InstructorDTO? Instructor { get; set; }
+        public List<CourseScheduleDTO>? Schedule { get; set; }
     }
 }
 

@@ -27,6 +27,7 @@ namespace StudentPortalApi.Repositories
             var grades = await _dbContext.Grades
                 .Include(g => g.Student)
                 .Include(g => g.Course)
+                .Include(g => g.Assignments)
                 .ToListAsync();
 
             var gradeDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
@@ -46,6 +47,7 @@ namespace StudentPortalApi.Repositories
             var grade = await _dbContext.Grades
                 .Include(g => g.Student)
                 .Include(g => g.Course)
+                .Include(g => g.Assignments)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
             if (grade == null) return null;
@@ -60,6 +62,7 @@ namespace StudentPortalApi.Repositories
             var grades = await _dbContext.Grades
                 .Include(g => g.Student)
                 .Include(g => g.Course)
+                .Include(g => g.Assignments)
                 .Where(g => g.StudentId == studentId)
                 .ToListAsync();
 
@@ -79,6 +82,7 @@ namespace StudentPortalApi.Repositories
             var grades = await _dbContext.Grades
                 .Include(g => g.Student)
                 .Include(g => g.Course)
+                .Include(g => g.Assignments)
                 .Where(g => g.CourseId == courseId)
                 .ToListAsync();
 
@@ -102,6 +106,7 @@ namespace StudentPortalApi.Repositories
             // Reload with related entities
             await _dbContext.Entry(grade).Reference(g => g.Student).LoadAsync();
             await _dbContext.Entry(grade).Reference(g => g.Course).LoadAsync();
+            await _dbContext.Entry(grade).Collection(g => g.Assignments).LoadAsync();
             
             var result = _mapper.Map<GradeDTO>(grade);
             result.StudentName = $"{grade.Student?.FirstName} {grade.Student?.LastName}".Trim();
@@ -113,6 +118,7 @@ namespace StudentPortalApi.Repositories
             var grade = await _dbContext.Grades
                 .Include(g => g.Student)
                 .Include(g => g.Course)
+                .Include(g => g.Assignments)
                 .FirstOrDefaultAsync(g => g.Id == id);
 
             if (grade == null) return null;
