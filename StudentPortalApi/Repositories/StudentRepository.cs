@@ -1,12 +1,23 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentPortalApi.Data;
 using StudentPortalApi.DTOs;
+using StudentPortalApi.Extensions;
 using StudentPortalApi.Interfaces;
 using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// Repository implementation for Student data access operations.
+    /// This layer handles all database interactions using Entity Framework.
+    /// Benefits: Separation of data access from business logic, testability, and reusability.
+    /// 
+    /// Uses async/await for all database operations to:
+    /// 1. Prevent thread blocking during I/O operations
+    /// 2. Improve scalability by allowing threads to handle other requests
+    /// 3. Better resource utilization
+    /// </summary>
     public class StudentRepository : IStudentRepository
     {
         private readonly StudentPortalDbContext _dbContext;
@@ -20,9 +31,9 @@ namespace StudentPortalApi.Repositories
 
         public async Task<IEnumerable<StudentDTO>> GetAllStudentsAsync()
         {
+            // Using extension method to reduce code duplication (DRY principle)
             var students = await _dbContext.Students
-                .Include(s => s.Address)
-                .Include(s => s.Grades)
+                .IncludeRelatedEntities()
                 .ToListAsync();
 
             return _mapper.Map<IEnumerable<StudentDTO>>(students);
@@ -30,9 +41,9 @@ namespace StudentPortalApi.Repositories
 
         public async Task<StudentDTO?> GetStudentByIdAsync(int id)
         {
+            // Using extension method to reduce code duplication (DRY principle)
             var student = await _dbContext.Students
-                .Include(s => s.Address)
-                .Include(s => s.Grades)
+                .IncludeRelatedEntities()
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             return student == null ? null : _mapper.Map<StudentDTO>(student);
@@ -71,3 +82,4 @@ namespace StudentPortalApi.Repositories
         }
     }
 }
+
