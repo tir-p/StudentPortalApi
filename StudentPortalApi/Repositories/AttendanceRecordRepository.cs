@@ -7,6 +7,9 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// Handles persistence for granular attendance records.
+    /// </summary>
     public class AttendanceRecordRepository : IAttendanceRecordRepository
     {
         private readonly StudentPortalDbContext _dbContext;

@@ -4,6 +4,9 @@ using StudentPortalApi.Interfaces;
 
 namespace StudentPortalApi.Controllers
 {
+    /// <summary>
+    /// API endpoints for managing the course timetable.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -16,6 +19,9 @@ namespace StudentPortalApi.Controllers
             _courseScheduleService = courseScheduleService;
         }
 
+        /// <summary>
+        /// Returns every schedule entry.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<CourseScheduleDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CourseScheduleDTO>>> GetAll()
@@ -24,6 +30,10 @@ namespace StudentPortalApi.Controllers
             return Ok(schedules);
         }
 
+        /// <summary>
+        /// Retrieves a schedule record by ID.
+        /// </summary>
+        /// <param name="id">Schedule identifier.</param>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(CourseScheduleDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,6 +45,10 @@ namespace StudentPortalApi.Controllers
             return Ok(schedule);
         }
 
+        /// <summary>
+        /// Lists schedule entries attached to a given course.
+        /// </summary>
+        /// <param name="courseId">Course identifier.</param>
         [HttpGet("course/{courseId:int}")]
         [ProducesResponseType(typeof(IEnumerable<CourseScheduleDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<CourseScheduleDTO>>> GetByCourseId([FromRoute] int courseId)
@@ -43,6 +57,9 @@ namespace StudentPortalApi.Controllers
             return Ok(schedules);
         }
 
+        /// <summary>
+        /// Creates a new course schedule entry.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(CourseScheduleDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,6 +72,10 @@ namespace StudentPortalApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Updates a schedule entry.
+        /// </summary>
+        /// <param name="id">Schedule identifier.</param>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(CourseScheduleDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,6 +91,10 @@ namespace StudentPortalApi.Controllers
             return Ok(updated);
         }
 
+        /// <summary>
+        /// Deletes a schedule entry.
+        /// </summary>
+        /// <param name="id">Schedule identifier.</param>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

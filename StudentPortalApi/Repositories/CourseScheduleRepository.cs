@@ -7,6 +7,9 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// Provides data access for course schedule entities.
+    /// </summary>
     public class CourseScheduleRepository : ICourseScheduleRepository
     {
         private readonly StudentPortalDbContext _dbContext;

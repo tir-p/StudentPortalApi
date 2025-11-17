@@ -1,5 +1,8 @@
 ﻿using StudentPortalApi.DTOs;
 
+/// <summary>
+/// Helper methods for converting grade inputs into GPA metrics shared across services.
+/// </summary>
 public static class GradeUtil
 {
     private static readonly Dictionary<string, double> GradeScale = new()
@@ -10,6 +13,9 @@ public static class GradeUtil
         { "D", 1.0 }, { "F", 0.0 }
     };
 
+    /// <summary>
+    /// Converts a set of course grades into a 4.0 GPA scale rounded to two decimals.
+    /// </summary>
     public static double CalculateGPA(IEnumerable<StudentGradeDTO> grades)
     {
         if (grades == null || !grades.Any()) return 0;
@@ -29,6 +35,9 @@ public static class GradeUtil
         return totalCredits > 0 ? Math.Round(totalPoints / totalCredits, 2) : 0;
     }
 
+    /// <summary>
+    /// Sums the credit hours represented by the supplied grade list.
+    /// </summary>
     public static int CalculateTotalCredits(IEnumerable<StudentGradeDTO> grades)
     {
         return grades?.Sum(g => g.Credits) ?? 0;

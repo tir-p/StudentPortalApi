@@ -4,6 +4,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Represents a graded artifact (exam, project, lab, etc.) that contributes to a
+    /// course grade, including weighting metadata for GPA calculations.
+    /// </summary>
     public class Assignment
     {
         [Key]

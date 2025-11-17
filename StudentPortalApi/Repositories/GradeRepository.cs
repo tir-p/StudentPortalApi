@@ -7,6 +7,9 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// Handles persistence of grade aggregates and their related entities.
+    /// </summary>
     public class GradeRepository : IGradeRepository
     {
         private readonly StudentPortalDbContext _dbContext;

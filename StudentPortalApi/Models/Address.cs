@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Entity representing the mailing location tied to a student; stored separately
+    /// to keep contact data decoupled from academic information while still
+    /// supporting a strict one-to-one relationship.
+    /// </summary>
     public class Address
     {
         [Key]

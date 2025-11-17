@@ -5,6 +5,10 @@ using System;
 
 namespace StudentPortalApi.Data
 {
+    /// <summary>
+    /// Entity Framework Core context that wires up the Student Portal domain model,
+    /// configures relationships, and seeds demo data for development/testing scenarios.
+    /// </summary>
     public class StudentPortalDbContext : DbContext
     {
         public StudentPortalDbContext(DbContextOptions<StudentPortalDbContext> options)
@@ -27,6 +31,9 @@ namespace StudentPortalApi.Data
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
 
+        /// <summary>
+        /// Configures entity relationships, cascade rules, and seed data.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

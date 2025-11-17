@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Represents teaching staff metadata used for course assignments and contact details.
+    /// </summary>
     public class Instructor
     {
         [Key]

@@ -1,5 +1,8 @@
 ﻿namespace StudentPortalApi.Enums
 {
+    /// <summary>
+    /// Supported letter-grade scale used throughout GPA calculations.
+    /// </summary>
     public enum LetterGrade
     {
         APlus,

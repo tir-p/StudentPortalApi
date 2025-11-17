@@ -5,6 +5,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.DTOs
 {
+    /// <summary>
+    /// Transport shape for exposing student information to clients without
+    /// leaking EF tracking or internal domain concerns.
+    /// </summary>
     public class StudentDTO
     {
         public int Id { get; set; }
@@ -50,6 +54,9 @@ namespace StudentPortalApi.DTOs
         public List<StudentGradeDTO>? Grades { get; set; }
     }
 
+    /// <summary>
+    /// Nested DTO that mirrors the Address entity for embedding within student payloads.
+    /// </summary>
     public class AddressDTO
     {
         public int Id { get; set; }
@@ -74,6 +81,9 @@ namespace StudentPortalApi.DTOs
     }
 
     // DTO for course grades
+    /// <summary>
+    /// Lightweight DTO used to surface an individual course grade in student responses.
+    /// </summary>
     public class StudentGradeDTO
     {
         [Required]

@@ -7,6 +7,9 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// EF Core-backed repository for CRUD operations on Assignment entities.
+    /// </summary>
     public class AssignmentRepository : IAssignmentRepository
     {
         private readonly StudentPortalDbContext _dbContext;

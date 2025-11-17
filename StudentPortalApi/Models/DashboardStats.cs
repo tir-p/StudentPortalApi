@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Read-model tailored for the dashboard tiles and charts, aggregating student
+    /// performance, engagement, and upcoming activity indicators.
+    /// </summary>
     public class DashboardStats
     {
         [Key]

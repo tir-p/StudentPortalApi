@@ -5,6 +5,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Lightweight entity used to surface reminders for upcoming academic events,
+    /// such as exams, assignment deadlines, or administrative dates.
+    /// </summary>
     public class UpcomingEvent
     {
         [Key]

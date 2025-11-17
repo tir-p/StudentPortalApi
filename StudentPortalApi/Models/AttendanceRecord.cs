@@ -2,6 +2,10 @@
 using StudentPortalApi.Models;
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Represents a single attendance entry for a given class meeting,
+/// capturing punctuality, modality, and instructor remarks for analytics.
+/// </summary>
 public class AttendanceRecord
 {
     [Key]

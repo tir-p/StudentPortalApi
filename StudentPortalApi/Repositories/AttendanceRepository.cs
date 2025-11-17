@@ -7,6 +7,9 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
+    /// <summary>
+    /// Concrete data-access implementation for attendance summaries using EF Core.
+    /// </summary>
     public class AttendanceRepository : IAttendanceRepository
     {
         private readonly StudentPortalDbContext _dbContext;

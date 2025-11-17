@@ -6,6 +6,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Aggregate entity that tracks how often a student attends a specific course,
+    /// storing rollup metrics as well as a navigation collection of detailed records.
+    /// </summary>
     public class Attendance
     {
         [Key]

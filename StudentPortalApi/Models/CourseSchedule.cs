@@ -2,6 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Represents a single meeting slot for a course, capturing the day/time/location
+/// details used by timetable and attendance modules.
+/// </summary>
 public class CourseSchedule
 {
     [Key]

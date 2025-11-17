@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using StudentPortalApi.Models;
 
+/// <summary>
+/// Represents the aggregate root for a student's academic profile, including
+/// demographic details, contact information, and navigation properties to related
+/// domain entities such as <see cref="Address"/> and <see cref="Grade"/>.
+/// </summary>
 public class Student
 {
     [Key]

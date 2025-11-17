@@ -6,6 +6,10 @@ using System;
 
 namespace StudentPortalApi.Mappings
 {
+    /// <summary>
+    /// Central AutoMapper configuration that defines how entities, DTOs, and
+    /// nested projections map to each other.
+    /// </summary>
     public class MappingProfile : Profile
     {
         public MappingProfile()

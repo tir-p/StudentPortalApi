@@ -4,6 +4,9 @@ using StudentPortalApi.Interfaces;
 
 namespace StudentPortalApi.Controllers
 {
+    /// <summary>
+    /// Exposes endpoints for working with attendance summaries per student/course.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -16,6 +19,9 @@ namespace StudentPortalApi.Controllers
             _attendanceService = attendanceService;
         }
 
+        /// <summary>
+        /// Returns every attendance summary.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AttendanceDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetAll()
@@ -24,6 +30,10 @@ namespace StudentPortalApi.Controllers
             return Ok(attendances);
         }
 
+        /// <summary>
+        /// Retrieves a single attendance summary by ID.
+        /// </summary>
+        /// <param name="id">Attendance identifier.</param>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(AttendanceDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,6 +45,10 @@ namespace StudentPortalApi.Controllers
             return Ok(attendance);
         }
 
+        /// <summary>
+        /// Gets attendance summaries for the given student.
+        /// </summary>
+        /// <param name="studentId">Student identifier.</param>
         [HttpGet("student/{studentId:int}")]
         [ProducesResponseType(typeof(IEnumerable<AttendanceDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetByStudentId([FromRoute] int studentId)
@@ -43,6 +57,10 @@ namespace StudentPortalApi.Controllers
             return Ok(attendances);
         }
 
+        /// <summary>
+        /// Gets attendance summaries for the given course.
+        /// </summary>
+        /// <param name="courseId">Course identifier.</param>
         [HttpGet("course/{courseId:int}")]
         [ProducesResponseType(typeof(IEnumerable<AttendanceDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AttendanceDTO>>> GetByCourseId([FromRoute] int courseId)
@@ -51,6 +69,9 @@ namespace StudentPortalApi.Controllers
             return Ok(attendances);
         }
 
+        /// <summary>
+        /// Creates a new attendance summary.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(AttendanceDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,6 +84,10 @@ namespace StudentPortalApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Updates an existing attendance summary.
+        /// </summary>
+        /// <param name="id">Attendance identifier.</param>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(AttendanceDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -78,6 +103,10 @@ namespace StudentPortalApi.Controllers
             return Ok(updated);
         }
 
+        /// <summary>
+        /// Deletes an attendance summary.
+        /// </summary>
+        /// <param name="id">Attendance identifier.</param>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -4,6 +4,9 @@ using StudentPortalApi.Interfaces;
 
 namespace StudentPortalApi.Controllers
 {
+    /// <summary>
+    /// Provides CRUD endpoints for fine-grained attendance entries linked to a student's course.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -16,6 +19,9 @@ namespace StudentPortalApi.Controllers
             _attendanceRecordService = attendanceRecordService;
         }
 
+        /// <summary>
+        /// Returns all attendance records in the system.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AttendanceRecordDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AttendanceRecordDTO>>> GetAll()
@@ -24,6 +30,10 @@ namespace StudentPortalApi.Controllers
             return Ok(records);
         }
 
+        /// <summary>
+        /// Retrieves a single attendance record by identifier.
+        /// </summary>
+        /// <param name="id">Attendance record ID.</param>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(AttendanceRecordDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,6 +45,10 @@ namespace StudentPortalApi.Controllers
             return Ok(record);
         }
 
+        /// <summary>
+        /// Fetches all attendance records tied to a parent attendance summary.
+        /// </summary>
+        /// <param name="attendanceId">Attendance summary ID.</param>
         [HttpGet("attendance/{attendanceId:int}")]
         [ProducesResponseType(typeof(IEnumerable<AttendanceRecordDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AttendanceRecordDTO>>> GetByAttendanceId([FromRoute] int attendanceId)
@@ -43,6 +57,9 @@ namespace StudentPortalApi.Controllers
             return Ok(records);
         }
 
+        /// <summary>
+        /// Creates a new attendance record entry.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(AttendanceRecordDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,6 +72,10 @@ namespace StudentPortalApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Updates an existing attendance record.
+        /// </summary>
+        /// <param name="id">Attendance record ID.</param>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(AttendanceRecordDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,6 +91,10 @@ namespace StudentPortalApi.Controllers
             return Ok(updated);
         }
 
+        /// <summary>
+        /// Deletes an attendance record.
+        /// </summary>
+        /// <param name="id">Attendance record ID.</param>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

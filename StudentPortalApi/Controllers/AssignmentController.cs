@@ -4,6 +4,9 @@ using StudentPortalApi.Interfaces;
 
 namespace StudentPortalApi.Controllers
 {
+    /// <summary>
+    /// API endpoints for CRUD operations on assignments.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -16,6 +19,9 @@ namespace StudentPortalApi.Controllers
             _assignmentService = assignmentService;
         }
 
+        /// <summary>
+        /// Returns all assignments.
+        /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AssignmentDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAll()
@@ -24,6 +30,10 @@ namespace StudentPortalApi.Controllers
             return Ok(assignments);
         }
 
+        /// <summary>
+        /// Retrieves a single assignment.
+        /// </summary>
+        /// <param name="id">Assignment identifier.</param>
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(AssignmentDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -35,6 +45,10 @@ namespace StudentPortalApi.Controllers
             return Ok(assignment);
         }
 
+        /// <summary>
+        /// Lists assignments belonging to a grade.
+        /// </summary>
+        /// <param name="gradeId">Grade identifier.</param>
         [HttpGet("grade/{gradeId:int}")]
         [ProducesResponseType(typeof(IEnumerable<AssignmentDTO>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetByGradeId([FromRoute] int gradeId)
@@ -43,6 +57,9 @@ namespace StudentPortalApi.Controllers
             return Ok(assignments);
         }
 
+        /// <summary>
+        /// Creates a new assignment.
+        /// </summary>
         [HttpPost]
         [ProducesResponseType(typeof(AssignmentDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,6 +72,10 @@ namespace StudentPortalApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// Updates an assignment.
+        /// </summary>
+        /// <param name="id">Assignment identifier.</param>
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(AssignmentDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,6 +91,10 @@ namespace StudentPortalApi.Controllers
             return Ok(updated);
         }
 
+        /// <summary>
+        /// Deletes an assignment permanently.
+        /// </summary>
+        /// <param name="id">Assignment identifier.</param>
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

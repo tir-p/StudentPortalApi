@@ -5,6 +5,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Core catalog entity that captures instructional metadata, scheduling links,
+    /// enrollment limits, and instructor assignments for a course offering.
+    /// </summary>
     public class Course
     {
         [Key]

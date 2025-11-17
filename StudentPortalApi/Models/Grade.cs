@@ -4,6 +4,10 @@ using StudentPortalApi.Enums;
 
 namespace StudentPortalApi.Models
 {
+    /// <summary>
+    /// Represents the cumulative result for a student in a specific course,
+    /// linking assignments, GPA metrics, and navigation references to related entities.
+    /// </summary>
     public class Grade
     {
         [Key]
