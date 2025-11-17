@@ -244,12 +244,22 @@ namespace StudentPortalApi.Data
 
             // Grades
             modelBuilder.Entity<Grade>().HasData(
-                new Grade { Id = 1, StudentId = 1, CourseId = 1, CourseName = "Advanced Software Engineering", CourseCode = "CSE-4101", Semester = "fall-2025", TotalScore = 90, LetterGrade = LetterGrade.A, GradePoints = 4.0, Credits = 3 }
+                new Grade { Id = 1, StudentId = 1, CourseId = 1, CourseName = "Advanced Software Engineering", CourseCode = "CSE-4101", Semester = "fall-2025", TotalScore = 90, LetterGrade = LetterGrade.A, GradePoints = 4.0, Credits = 3 },
+                new Grade { Id = 2, StudentId = 1, CourseId = 2, CourseName = "Machine Learning", CourseCode = "CSE-4102", Semester = "fall-2025", TotalScore = 85, LetterGrade = LetterGrade.B, GradePoints = 3.0, Credits = 4 },
+                new Grade { Id = 3, StudentId = 1, CourseId = 1, CourseName = "Advanced Software Engineering", CourseCode = "CSE-4101", Semester = "fall-2025", TotalScore = 88, LetterGrade = LetterGrade.B, GradePoints = 3.5, Credits = 3 },
+                new Grade { Id = 4, StudentId = 1, CourseId = 3, CourseName = "Cloud Computing", CourseCode = "CSE-4103", Semester = "fall-2025", TotalScore = 92, LetterGrade = LetterGrade.A, GradePoints = 4.0, Credits = 3 },
+                new Grade { Id = 5, StudentId = 1, CourseId = 2, CourseName = "Machine Learning", CourseCode = "CSE-4102", Semester = "fall-2025", TotalScore = 95, LetterGrade = LetterGrade.A, GradePoints = 4.0, Credits = 4 },
+                new Grade { Id = 6, StudentId = 1, CourseId = 4, CourseName = "Operating Systems", CourseCode = "CSE-4104", Semester = "fall-2025", TotalScore = 78, LetterGrade = LetterGrade.C, GradePoints = 2.0, Credits = 3 }
             );
 
             // Assignments
             modelBuilder.Entity<Assignment>().HasData(
-                new Assignment { Id = 1, GradeId = 1, Name = "Design Patterns Assignment", MaxScore = 100, EarnedScore = 92, Weight = 20, DueDate = new DateTime(2025, 10, 15), SubmittedDate = new DateTime(2025, 10, 14), Status = AssignmentStatus.Graded, Feedback = "Excellent work on implementing the Factory pattern!" }
+                new Assignment { Id = 1, GradeId = 1, Name = "Design Patterns Assignment", MaxScore = 100, EarnedScore = 92, Weight = 20, DueDate = new DateTime(2025, 10, 15), SubmittedDate = new DateTime(2025, 10, 14), Status = AssignmentStatus.Graded, Feedback = "Excellent work!" },
+                new Assignment { Id = 2, GradeId = 2, Name = "ML Project", MaxScore = 100, EarnedScore = 85, Weight = 30, DueDate = new DateTime(2025, 11, 10), SubmittedDate = new DateTime(2025, 11, 09), Status = AssignmentStatus.Graded, Feedback = "Good implementation" },
+                new Assignment { Id = 3, GradeId = 3, Name = "Software Engineering Assignment", MaxScore = 100, EarnedScore = 88, Weight = 25, DueDate = new DateTime(2025, 10, 20), SubmittedDate = new DateTime(2025, 10, 19), Status = AssignmentStatus.Graded, Feedback = "Well done" },
+                new Assignment { Id = 4, GradeId = 4, Name = "Cloud Deployment Lab", MaxScore = 100, EarnedScore = 92, Weight = 20, DueDate = new DateTime(2025, 11, 12), SubmittedDate = new DateTime(2025, 11, 11), Status = AssignmentStatus.Graded, Feedback = "Excellent work" },
+                new Assignment { Id = 5, GradeId = 5, Name = "ML Final Project", MaxScore = 100, EarnedScore = 95, Weight = 40, DueDate = new DateTime(2025, 11, 15), SubmittedDate = new DateTime(2025, 11, 14), Status = AssignmentStatus.Graded, Feedback = "Outstanding!" },
+                new Assignment { Id = 6, GradeId = 6, Name = "OS Lab Report", MaxScore = 100, EarnedScore = 78, Weight = 30, DueDate = new DateTime(2025, 11, 18), SubmittedDate = new DateTime(2025, 11, 17), Status = AssignmentStatus.Graded, Feedback = "Needs improvement" }
             );
         }
     }

@@ -7,10 +7,6 @@ using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
 {
-    /// <summary>
-    /// Repository implementation for Grade data access operations.
-    /// Uses async/await for all database operations to prevent thread blocking and improve scalability.
-    /// </summary>
     public class GradeRepository : IGradeRepository
     {
         private readonly StudentPortalDbContext _dbContext;
@@ -31,12 +27,11 @@ namespace StudentPortalApi.Repositories
                 .ToListAsync();
 
             var gradeDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
-            
-            // Map student and course names
-            foreach (var gradeDto in gradeDtos)
+
+            // Set StudentName in one line
+            foreach (var dto in gradeDtos)
             {
-                var grade = grades.First(g => g.Id == gradeDto.Id);
-                gradeDto.StudentName = $"{grade.Student?.FirstName} {grade.Student?.LastName}".Trim();
+                dto.StudentName = $"{grades.First(g => g.Id == dto.Id).Student?.FirstName} {grades.First(g => g.Id == dto.Id).Student?.LastName}".Trim();
             }
 
             return gradeDtos;
@@ -67,11 +62,10 @@ namespace StudentPortalApi.Repositories
                 .ToListAsync();
 
             var gradeDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
-            
-            foreach (var gradeDto in gradeDtos)
+
+            foreach (var dto in gradeDtos)
             {
-                var grade = grades.First(g => g.Id == gradeDto.Id);
-                gradeDto.StudentName = $"{grade.Student?.FirstName} {grade.Student?.LastName}".Trim();
+                dto.StudentName = $"{grades.First(g => g.Id == dto.Id).Student?.FirstName} {grades.First(g => g.Id == dto.Id).Student?.LastName}".Trim();
             }
 
             return gradeDtos;
@@ -87,11 +81,10 @@ namespace StudentPortalApi.Repositories
                 .ToListAsync();
 
             var gradeDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
-            
-            foreach (var gradeDto in gradeDtos)
+
+            foreach (var dto in gradeDtos)
             {
-                var grade = grades.First(g => g.Id == gradeDto.Id);
-                gradeDto.StudentName = $"{grade.Student?.FirstName} {grade.Student?.LastName}".Trim();
+                dto.StudentName = $"{grades.First(g => g.Id == dto.Id).Student?.FirstName} {grades.First(g => g.Id == dto.Id).Student?.LastName}".Trim();
             }
 
             return gradeDtos;
@@ -102,12 +95,11 @@ namespace StudentPortalApi.Repositories
             var grade = _mapper.Map<Grade>(gradeDto);
             _dbContext.Grades.Add(grade);
             await _dbContext.SaveChangesAsync();
-            
-            // Reload with related entities
+
             await _dbContext.Entry(grade).Reference(g => g.Student).LoadAsync();
             await _dbContext.Entry(grade).Reference(g => g.Course).LoadAsync();
             await _dbContext.Entry(grade).Collection(g => g.Assignments).LoadAsync();
-            
+
             var result = _mapper.Map<GradeDTO>(grade);
             result.StudentName = $"{grade.Student?.FirstName} {grade.Student?.LastName}".Trim();
             return result;
@@ -142,4 +134,3 @@ namespace StudentPortalApi.Repositories
         }
     }
 }
-
