@@ -1,10 +1,10 @@
-using StudentPortalApi.Data;
 using Microsoft.EntityFrameworkCore;
 using StudentPortalApi.Interfaces;
 using StudentPortalApi.Repositories;
 using StudentPortalApi.Services;
 using StudentPortalApi.Converters;
 using System.Text.Json.Serialization;
+using StudentPortalApi.DTOs.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
