@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortalApi.Interfaces;
 using StudentPortalApi.Repositories;
 using StudentPortalApi.Services;
-using StudentPortalApi.Converters;
 using System.Text.Json.Serialization;
-using StudentPortalApi.DTOs.Data;
+using StudentPortal.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,15 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Prevent circular reference issues when returning entities with navigation properties
+        // Prevents infinite loops when objects reference each other.
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.WriteIndented = true;
-        // Use camelCase for property names to match frontend expectations
+        options.JsonSerializerOptions.WriteIndented = true; //Makes JSON pretty-printed with indentation.
+        // Converts C# property names (PascalCase) to camelCase in JSON property FirstName becomes firstName in json
         options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
-        // Serialize enums as strings instead of integers
+        // Serialize enums as strings instead of integers - CamelCase option makes it "first" instead of "First". instead of "year": 1 it will be "year": "first"
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter(System.Text.Json.JsonNamingPolicy.CamelCase));
-        // Custom converter for LetterGrade to convert APlus -> A+, AMinus -> A-, etc.
-        options.JsonSerializerOptions.Converters.Add(new LetterGradeJsonConverter());
     });
 
 // Register Swagger/OpenAPI
@@ -64,12 +61,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://localhost:4200") // Angular dev server default ports
+        policy.AllowAnyOrigin()            // TEMP FOR DEV ONLY
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowAnyMethod();
     });
 });
+
 
 var app = builder.Build();
 

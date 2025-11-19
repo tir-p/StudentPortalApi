@@ -60,9 +60,9 @@ public class Student
     [Required]
     [MaxLength(20)]
     [Column("ContactNumber")]
-    public string ContactNumber { get; set; }
+    public string? ContactNumber { get; set; }
 
     // Navigation properties
-    public Address Address { get; set; }  // one-to-one, FK on Address
-    public ICollection<Grade> Grades { get; set; } = new List<Grade>(); // one-to-many
+    public Address? Address { get; set; }  // one-to-one, FK on Address
+    public ICollection<Grade>? Grades { get; set; } = new List<Grade>(); // one-to-many
 }

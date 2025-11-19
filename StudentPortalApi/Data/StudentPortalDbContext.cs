@@ -3,7 +3,7 @@ using StudentPortalApi.Enums;
 using StudentPortalApi.Models;
 using System;
 
-namespace StudentPortalApi.DTOs.Data
+namespace StudentPortal.Api.Data
 {
     /// <summary>
     /// Entity Framework Core context that wires up the Student Portal domain model,

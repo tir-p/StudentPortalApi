@@ -34,7 +34,7 @@ namespace StudentPortalApi.DTOs
         [StringLength(100)]
         public string? Major { get; set; }
 
-        [Range(1, 10)]
+        [Range(1, 5)]
         public int Year { get; set; }
 
         [Range(0.0, 4.0)]
@@ -42,7 +42,7 @@ namespace StudentPortalApi.DTOs
 
         public int TotalCredits { get; set; } // Computed from Grades
 
-        [StringLength(300), Url]
+        [StringLength(300)]
         public string? ProfileImage { get; set; }
 
         [Required, StringLength(20), Phone]

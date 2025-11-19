@@ -1,9 +1,9 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentPortalApi.DTOs;
-using StudentPortalApi.DTOs.Data;
 using StudentPortalApi.Extensions;
 using StudentPortalApi.Interfaces;
+using StudentPortal.Api.Data;
 using StudentPortalApi.Models;
 
 namespace StudentPortalApi.Repositories
@@ -59,17 +59,53 @@ namespace StudentPortalApi.Repositories
 
         public async Task<StudentDTO?> UpdateStudentAsync(int id, StudentDTO studentDto)
         {
+            // Load student including related Address
             var student = await _dbContext.Students
                 .Include(s => s.Address)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null) return null;
 
-            _mapper.Map(studentDto, student);
-            await _dbContext.SaveChangesAsync();
+            // Update scalar properties
+            student.FirstName = studentDto.FirstName;
+            student.LastName = studentDto.LastName;
+            student.Email = studentDto.Email;
+            student.StudentId = studentDto.StudentId;
+            student.DateOfBirth = studentDto.DateOfBirth;
+            student.EnrollmentDate = studentDto.EnrollmentDate;
+            student.Major = studentDto.Major;
+            student.Year = studentDto.Year;
+            student.GPA = studentDto.GPA;
+            student.ProfileImage = studentDto.ProfileImage;
+            student.ContactNumber = studentDto.ContactNumber;
 
+            // Update address if it exists
+            if (student.Address != null && studentDto.Address != null)
+            {
+                student.Address.Street = studentDto.Address.Street;
+                student.Address.City = studentDto.Address.City;
+                student.Address.State = studentDto.Address.State;
+                student.Address.ZipCode = studentDto.Address.ZipCode;
+                student.Address.Country = studentDto.Address.Country;
+            }
+            else if (student.Address == null && studentDto.Address != null)
+            {
+                // If student has no address yet, create one
+                student.Address = new Address
+                {
+                    Street = studentDto.Address.Street,
+                    City = studentDto.Address.City,
+                    State = studentDto.Address.State,
+                    ZipCode = studentDto.Address.ZipCode,
+                    Country = studentDto.Address.Country,
+                    StudentId = student.Id
+                };
+            }
+
+            await _dbContext.SaveChangesAsync();
             return _mapper.Map<StudentDTO>(student);
         }
+
 
         public async Task<bool> DeleteStudentAsync(int id)
         {

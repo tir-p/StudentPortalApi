@@ -1,7 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using StudentPortal.Api.Data;
 using StudentPortalApi.DTOs;
-using StudentPortalApi.DTOs.Data;
 using StudentPortalApi.Interfaces;
 using StudentPortalApi.Models;
 
