@@ -64,5 +64,5 @@ public class Student
 
     // Navigation properties
     public Address? Address { get; set; }  // one-to-one, FK on Address
-    public ICollection<Grade>? Grades { get; set; } = new List<Grade>(); // one-to-many
+    public ICollection<Grade> Grades { get; set; } = new List<Grade>(); // one-to-many
 }

@@ -19,6 +19,10 @@ namespace StudentPortalApi.Extensions
                 .Include(s => s.Address)
                 .Include(s => s.Grades)
                     .ThenInclude(g => g.Course);
+            /* 
+             In short:
+            IncludeRelatedEntities = “load the student along with their address and all grades, including the courses of those grades”. 
+             */
         }
 
         /// <summary>

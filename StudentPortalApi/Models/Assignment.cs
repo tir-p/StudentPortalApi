@@ -14,7 +14,7 @@ namespace StudentPortalApi.Models
         public int Id { get; set; } // int ID
 
         [Required]
-        public int GradeId { get; set; } // FK
+        public int? GradeId { get; set; } // FK
 
         [Required]
         public string Name { get; set; }
@@ -28,6 +28,6 @@ namespace StudentPortalApi.Models
         public string? Feedback { get; set; }
 
         // Navigation
-        public Grade Grade { get; set; }
+        public Grade? Grade { get; set; }
     }
 }
