@@ -199,21 +199,34 @@ Used extensively in repositories for querying and data transformations.
    - Controllers depend on `IStudentService`, not `StudentService`
    - Services depend on `IStudentRepository`, not `StudentRepository`
 
-## Project Structure
+## Project Structure (Clean Architecture)
 ```
 StudentPortalApi/
-├── Controllers/          # API endpoints
-├── Services/            # Business logic
-├── Repositories/        # Data access
-├── Interfaces/          # Contracts (interfaces)
-├── Models/             # Domain entities
-├── DTOs/               # Data Transfer Objects
-├── Mappings/           # AutoMapper profiles
-├── Data/               # DbContext and EF configuration
-├── Extensions/         # Extension methods
-├── Enums/              # Enum definitions
-└── Migrations/         # EF Migrations
+├── src/
+│   ├── StudentPortal.Domain/              # Core - no dependencies
+│   │   ├── Entities/                      # Domain entities (ex-Models/)
+│   │   └── Enums/                         # Domain enums
+│   ├── StudentPortal.Application/         # Business logic - depends on Domain
+│   │   ├── DTOs/                          # Data Transfer Objects
+│   │   ├── Interfaces/                    # Service + repository contracts
+│   │   ├── Services/                      # Business logic implementations
+│   │   ├── Mappings/                      # AutoMapper profiles
+│   │   └── Common/                        # Shared helpers (GradeUtil)
+│   ├── StudentPortal.Infrastructure/      # Data access - depends on Application + Domain
+│   │   ├── Persistence/
+│   │   │   ├── StudentPortalDbContext.cs   # EF Core DbContext (ex-Data/)
+│   │   │   ├── Repositories/              # EF repository implementations
+│   │   │   └── Extensions/                # EF query extensions (QueryExtensions)
+│   │   └── Migrations/                    # EF Migrations
+│   └── StudentPortal.Api/                 # Presentation - depends on Application + Infrastructure
+│       ├── Controllers/                   # API endpoints
+│       ├── Program.cs                     # DI composition root
+│       ├── appsettings.json
+│       └── Properties/launchSettings.json
+└── StudentPortalApi.slnx                  # Solution file
 ```
+
+Dependency rule: `Api → Infrastructure → Application → Domain`. Domain knows nothing about outer layers.
 
 ## API Attributes Used
 

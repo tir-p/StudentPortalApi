@@ -1,0 +1,20 @@
+namespace StudentPortal.Domain.Enums
+{
+    /// <summary>
+    /// Supported letter-grade scale used throughout GPA calculations.
+    /// </summary>
+    public enum LetterGrade
+    {
+        APlus,
+        A,
+        AMinus,
+        BPlus,
+        B,
+        BMinus,
+        CPlus,
+        C,
+        CMinus,
+        D,
+        F
+    }
+}
